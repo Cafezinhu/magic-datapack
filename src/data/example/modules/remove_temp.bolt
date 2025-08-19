@@ -1,0 +1,2 @@
+def remove_temp():
+  data remove entity @e[limit=1,nbt={data:{temp:true}}] data 

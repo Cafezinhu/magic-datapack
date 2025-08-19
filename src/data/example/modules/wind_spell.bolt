@@ -1,0 +1,37 @@
+def wind_spell():
+  frames = 25
+  speed = 3
+
+  execute as @s at @s rotated as @s positioned ^ ^ ^10 :
+    summon item_display ^ ^ ^ {item:{id:player_head},data:{temp1:true},view_range:0}
+    
+  summon item_display ~ ~ ~ {item:{id:player_head},data:{temp2:true},view_range:0}
+  data modify entity @e[limit=1,nbt={data:{temp2:true}}] item.components.profile.id set from entity @s UUID
+
+  rotate @e[nbt={data:{temp2:true}},limit=1] facing entity @e[nbt={data:{temp1:true}},limit=1]
+
+  kill @e[nbt={data:{temp1:true}},limit=1]
+
+  data modify entity @e[limit=1,nbt={data:{temp2:true}}] data set value {wind:spell_start}
+  
+  for k in range(frames):
+    z = 2 + k * speed
+    t = k + 1
+    schedule function ~/{k} t append:
+      execute as @e[nbt={data:{wind:spell_start}}] at @s rotated as @s positioned ^ ^1.7 ^z:
+        playsound minecraft:entity.breeze.shoot player @a[distance=..40]
+        particle gust ^ ^ ^ 0 0 0 0 1 force
+        if k == frames - 1:
+          data modify storage temp player_uuid set from entity @s item.components.profile.id
+  
+          execute as @a[advancements={example:use_wind_wand=true}] at @s:
+            data modify storage temp temp_uuid set from storage temp player_uuid
+            execute if function example:test_player_uuid as @s at @s:
+              advancement revoke @s only example:use_wind_wand
+
+          data remove storage temp player_uuid
+          data remove storage temp temp_uuid
+          kill @s
+  
+
+

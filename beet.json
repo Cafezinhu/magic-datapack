@@ -1,0 +1,14 @@
+{
+  "name": "cafefezinho",
+  "description": "teste",
+  "require": ["bolt"],
+  "data_pack": {"load": ["src"]},
+  "resource_pack": {"load": ["src"]},
+  "pipeline": ["mecha"],
+  "output": "build",
+  "meta": {
+    "bolt": {
+      "entrypoint": ["example:main"]
+    }
+  }
+}

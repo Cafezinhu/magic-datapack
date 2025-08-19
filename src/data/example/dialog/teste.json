@@ -1,0 +1,10 @@
+{
+  "type": "notice",
+  "title": "teste",
+  "body": [
+    {
+      "type": "plain_message",
+      "contents": "Bom dia."
+    }
+  ] 
+}
