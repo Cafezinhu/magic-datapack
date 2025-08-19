@@ -8,8 +8,8 @@ def fire():
 
       execute rotated as @s positioned ^ ^1.3 ^z :
         particle flame
-        data merge entity @e[type=!minecraft:player,type=!minecraft:item,limit=1,distance=..2] {Fire: 200}
-        damage @e[type=!minecraft:blaze,type=!minecraft:item,type=!minecraft:magma_cube,limit=1,distance=..2] 9 minecraft:magic by @s
+        data merge entity @e[type=!player,type=!item,type=!experience_orb,limit=1,distance=..2] {Fire: 200}
+        damage @e[type=!blaze,type=!item,type=!experience_orb,type=!magma_cube,limit=1,distance=..2] 9 minecraft:magic by @s
       
   advancement revoke @s only example:use_fire_wand
     

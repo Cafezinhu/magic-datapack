@@ -21,6 +21,9 @@ def wind_spell():
       execute as @e[nbt={data:{wind:spell_start}}] at @s rotated as @s positioned ^ ^1.7 ^z:
         playsound minecraft:entity.breeze.shoot player @a[distance=..40]
         particle gust ^ ^ ^ 0 0 0 0 1 force
+        execute as @e[distance=..2] at @s:
+          damage @s[type=!minecraft:item] 3 minecraft:magic by @p[limit=1,advancements={example:use_wind_wand=true}]
+          data merge entity @s {Motion:[0,1,0]}
         if k == frames - 1:
           data modify storage temp player_uuid set from entity @s item.components.profile.id
   
