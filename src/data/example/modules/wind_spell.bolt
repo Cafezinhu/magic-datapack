@@ -2,9 +2,11 @@ def wind_spell():
   frames = 25
   speed = 3
 
-  execute as @s at @s rotated as @s positioned ^ ^ ^10 :
+  execute as @s at @s rotated as @s positioned ^ ^ ^1 :
     summon item_display ^ ^ ^ {item:{id:player_head},data:{temp1:true},view_range:0}
-    
+    data modify storage temp temp_vec_1 set from entity @e[nbt={data:{temp1:true}},limit=1] Pos 
+    data modify storage temp temp_vec_2 set from entity @s Pos 
+
   summon item_display ~ ~ ~ {item:{id:player_head},data:{temp2:true},view_range:0}
   data modify entity @e[limit=1,nbt={data:{temp2:true}}] item.components.profile.id set from entity @s UUID
 

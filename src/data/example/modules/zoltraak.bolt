@@ -1,0 +1,79 @@
+from math import cos, sin, degrees, sqrt, radians
+def zoltraak():
+  execute as @s[scores={zoltraak_charge=0}] positioned ~ ~1.7 ~:
+    scoreboard players set @s zoltraak_charge 1
+    execute rotated as @s positioned ^ ^ ^2 :
+      p = "dolphin"
+      spawn_circle(2.0, p, 0.5)
+      spawn_circle(1.9, p, 0.5)
+      spawn_circle(1.8, p, 0.5)
+      spawn_circle(1.65, p, 0.5)
+      spawn_circle(1.5, p, 0.5)
+      line_frequency = 20
+      line_len_1 = 1.0
+      line_len_2 = 0.5
+      spawn_line(line_len_2, -20.0, p, line_frequency,spawn_line(line_len_1, 10.0, p, line_frequency))
+      spawn_line(line_len_2, 80.0, p, line_frequency,spawn_line(line_len_1, 50.0, p, line_frequency))
+      spawn_line(line_len_2, 40.0, p, line_frequency,spawn_line(line_len_1, 70.0, p, line_frequency))
+      spawn_line(line_len_2, 140.0, p, line_frequency,spawn_line(line_len_1, 110.0, p, line_frequency))
+      spawn_line(line_len_2, 100.0, p, line_frequency,spawn_line(line_len_1, 130.0, p, line_frequency))
+      spawn_line(line_len_2, 200.0, p, line_frequency,spawn_line(line_len_1, 170.0, p, line_frequency))
+      spawn_line(line_len_2, 160.0, p, line_frequency,spawn_line(line_len_1, 190.0, p, line_frequency))
+      spawn_line(line_len_2, 260.0, p, line_frequency,spawn_line(line_len_1, 230.0, p, line_frequency))
+      spawn_line(line_len_2, 220.0, p, line_frequency,spawn_line(line_len_1, 250.0, p, line_frequency))
+      spawn_line(line_len_2, 320.0, p, line_frequency,spawn_line(line_len_1, 290.0, p, line_frequency))
+      spawn_line(line_len_2, 290.0, p, line_frequency,spawn_line(line_len_1, 310.0, p, line_frequency))
+      spawn_line(line_len_2, 380.0, p, line_frequency,spawn_line(line_len_1, 350.0, p, line_frequency))
+
+
+def spawn_line(magnitude, angle, p, frequency, pos = (0,0)):
+  a = radians(angle)
+
+  x = magnitude * cos(a)
+  y = magnitude * sin(a)
+
+  for i in range(int(frequency)):
+    px = lerp(0.0, x, i/frequency) + pos[0]
+    py = lerp(0.0, y, i/frequency) + pos[1]
+    particle p ^px ^py ^ 
+  return (x, y)
+
+def lerp(start, end, by):
+  return start + (end - start) * by
+
+def spawn_circle(r, p, frequency):
+  for a in range(int(360*frequency)):
+    angle = radians(a/frequency)
+
+    x = r * cos(angle)
+    y = r * sin(angle)
+    particle p ^x ^y ^ 
+
+def spawn_full_circle(r, p, frequency):
+  for x in range(int(r*2*frequency)):
+    for y in range(int(r*2*frequency)):
+      px = (x - r*frequency)/frequency
+      py = (y - r*frequency)/frequency
+      if sqrt(pow(px, 2) + pow(py, 2)) < r:
+        particle p ^px ^py ^
+      
+ 
+def zoltraak_beam():
+  execute as @a[scores={zoltraak_charge=10..}] at @s positioned ~ ~1.7 ~:
+    advancement revoke @s only example:use_zoltraak
+    scoreboard players set @s zoltraak_charge 0
+
+    
+    for k in range(300):
+      z = k/9.0 + 2
+      
+      execute rotated as @s positioned ^ ^ ^z :
+        if k == 0:
+          spawn_full_circle(1.0, "end_rod", 10.0)
+          playsound minecraft:entity.blaze.shoot
+        else:
+          spawn_circle(1.0, "end_rod", 0.1)
+        damage @e[type=!item,type=!experience_orb,limit=1,distance=..2] 30 minecraft:magic by @s
+      
+  
+
