@@ -1,29 +1,40 @@
 from math import cos, sin, degrees, sqrt, radians
 def zoltraak():
-  execute as @s[scores={zoltraak_charge=0}] positioned ~ ~1.7 ~:
+  execute as @s[scores={zoltraak_charge=0}] positioned ~ ~1.65 ~:
     scoreboard players set @s zoltraak_charge 1
     execute rotated as @s positioned ^ ^ ^2 :
       p = "dolphin"
       spawn_circle(2.0, p, 0.5)
-      spawn_circle(1.9, p, 0.5)
+      spawn_circle(1.88, p, 0.2)
       spawn_circle(1.8, p, 0.5)
-      spawn_circle(1.65, p, 0.5)
+      spawn_circle(1.65, p, 0.2)
       spawn_circle(1.5, p, 0.5)
       line_frequency = 20
-      line_len_1 = 1.0
-      line_len_2 = 0.5
-      spawn_line(line_len_2, -20.0, p, line_frequency,spawn_line(line_len_1, 10.0, p, line_frequency))
-      spawn_line(line_len_2, 80.0, p, line_frequency,spawn_line(line_len_1, 50.0, p, line_frequency))
-      spawn_line(line_len_2, 40.0, p, line_frequency,spawn_line(line_len_1, 70.0, p, line_frequency))
-      spawn_line(line_len_2, 140.0, p, line_frequency,spawn_line(line_len_1, 110.0, p, line_frequency))
-      spawn_line(line_len_2, 100.0, p, line_frequency,spawn_line(line_len_1, 130.0, p, line_frequency))
-      spawn_line(line_len_2, 200.0, p, line_frequency,spawn_line(line_len_1, 170.0, p, line_frequency))
-      spawn_line(line_len_2, 160.0, p, line_frequency,spawn_line(line_len_1, 190.0, p, line_frequency))
-      spawn_line(line_len_2, 260.0, p, line_frequency,spawn_line(line_len_1, 230.0, p, line_frequency))
-      spawn_line(line_len_2, 220.0, p, line_frequency,spawn_line(line_len_1, 250.0, p, line_frequency))
-      spawn_line(line_len_2, 320.0, p, line_frequency,spawn_line(line_len_1, 290.0, p, line_frequency))
-      spawn_line(line_len_2, 290.0, p, line_frequency,spawn_line(line_len_1, 310.0, p, line_frequency))
-      spawn_line(line_len_2, 380.0, p, line_frequency,spawn_line(line_len_1, 350.0, p, line_frequency))
+      line_len_1 = 0.8
+      line_len_2 = 0.6
+      spawn_circle(0.2, p, 0.2)
+
+      spawn_line(line_len_2, -25.0, p, line_frequency,spawn_line(line_len_1, 20.0, p, line_frequency, spawn_line(0.2, 0.0, "", 0)))
+      spawn_line(line_len_2, 85.0, p, line_frequency,spawn_line(line_len_1, 40.0, p, line_frequency, spawn_line(0.2, 60.0, "", 0)))
+      spawn_line(line_len_2, 35.0, p, line_frequency,spawn_line(line_len_1, 80.0, p, line_frequency, spawn_line(0.2, 60.0, "", 0)))
+      spawn_line(line_len_2, 145.0, p, line_frequency,spawn_line(line_len_1, 100.0, p, line_frequency, spawn_line(0.2, 120.0, "", 0)))
+      spawn_line(line_len_2, 95.0, p, line_frequency,spawn_line(line_len_1, 140.0, p, line_frequency, spawn_line(0.2, 120.0, "", 0)))
+      spawn_line(line_len_2, 205.0, p, line_frequency,spawn_line(line_len_1, 160.0, p, line_frequency, spawn_line(0.2, 180.0, "", 0)))
+      spawn_line(line_len_2, 155.0, p, line_frequency,spawn_line(line_len_1, 200.0, p, line_frequency, spawn_line(0.2, 180.0, "", 0)))
+      spawn_line(line_len_2, 265.0, p, line_frequency,spawn_line(line_len_1, 220.0, p, line_frequency, spawn_line(0.2, 240.0, "", 0)))
+      spawn_line(line_len_2, 215.0, p, line_frequency,spawn_line(line_len_1, 260.0, p, line_frequency, spawn_line(0.2, 240.0, "", 0)))
+      spawn_line(line_len_2, 325.0, p, line_frequency,spawn_line(line_len_1, 280.0, p, line_frequency, spawn_line(0.2, 300.0, "", 0)))
+      spawn_line(line_len_2, 285.0, p, line_frequency,spawn_line(line_len_1, 320.0, p, line_frequency, spawn_line(0.2, 300.0, "", 0)))
+      spawn_line(line_len_2, 385.0, p, line_frequency,spawn_line(line_len_1, 340.0, p, line_frequency, spawn_line(0.2, 0.0, "", 0)))
+      
+      mini_r = 0.23
+      spawn_circle(mini_r, p, 0.1,spawn_line(0.95, 0.0, "", 0))
+      spawn_circle(mini_r, p, 0.1,spawn_line(0.95, 60.0, "", 0))
+      spawn_circle(mini_r, p, 0.1,spawn_line(0.95, 120.0, "", 0))
+      spawn_circle(mini_r, p, 0.1,spawn_line(0.95, 180.0, "", 0))
+      spawn_circle(mini_r, p, 0.1,spawn_line(0.95, 240.0, "", 0))
+      spawn_circle(mini_r, p, 0.1,spawn_line(0.95, 300.0, "", 0))
+      
 
 
 def spawn_line(magnitude, angle, p, frequency, pos = (0,0)):
@@ -36,20 +47,20 @@ def spawn_line(magnitude, angle, p, frequency, pos = (0,0)):
     px = lerp(0.0, x, i/frequency) + pos[0]
     py = lerp(0.0, y, i/frequency) + pos[1]
     particle p ^px ^py ^ 
-  return (x, y)
+  return (x + pos[0], y + pos[1])
 
 def lerp(start, end, by):
   return start + (end - start) * by
 
-def spawn_circle(r, p, frequency):
+def spawn_circle(r, p, frequency, pos=(0,0)):
   for a in range(int(360*frequency)):
     angle = radians(a/frequency)
 
-    x = r * cos(angle)
-    y = r * sin(angle)
+    x = r * cos(angle) + pos[0]
+    y = r * sin(angle) + pos[1]
     particle p ^x ^y ^ 
 
-def spawn_full_circle(r, p, frequency):
+def spawn_full_circle(r, p, frequency, pos=(0,0)):
   for x in range(int(r*2*frequency)):
     for y in range(int(r*2*frequency)):
       px = (x - r*frequency)/frequency
